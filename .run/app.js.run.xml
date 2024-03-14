@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="app.js" type="NodeJSConfigurationType" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/02. TypeScript Basics and Core Concepts">
-    <method v="2">
-      <option name="TypeScript.Before.Run" enabled="true" FAIL_ON_ERROR="true" CONFIG_PATH="C:\dev\react-and-typescript-the-practical-guide\02. TypeScript Basics and Core Concepts\tsconfig.json" />
-    </method>
-  </configuration>
-</component>
