@@ -3,13 +3,22 @@ import { Route as BlogRoute } from '@routes/blog/index';
 import { Route as IndexRoute } from '@routes/index';
 import { Route as AboutRoute } from '@routes/about/index';
 
+const activeProps = {
+  style: {
+    fontWeight: 'bold'
+  }
+};
+
 export default function Header() {
   return (
     <header>
-      <Link to={IndexRoute.to}>Home</Link>
+      <Link to={IndexRoute.to} activeProps={activeProps}>
+        Home
+      </Link>
       {'  '}
       <Link
         to={BlogRoute.to}
+        activeProps={activeProps}
         search={{
           page: 1,
           pageSize: 10
@@ -18,7 +27,9 @@ export default function Header() {
         Blog
       </Link>
       {'  '}
-      <Link to={AboutRoute.to}>About</Link>
+      <Link to={AboutRoute.to} activeProps={activeProps}>
+        About
+      </Link>
     </header>
   );
 }
