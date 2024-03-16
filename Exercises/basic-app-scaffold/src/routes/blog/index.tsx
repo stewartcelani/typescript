@@ -1,10 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-
-export const initalBlogSearchParams: BlogSearchParams = {
-  page: 1,
-  pageSize: 10
-};
+import { blogPostsQueryOptions } from '@hooks/blog/blogPosts';
+import RouteErrorComponent from '@components/common/RouteErrorComponent.tsx';
 
 const blogSearchSchema = z.object({
   page: z.number().catch(1),
@@ -14,5 +11,12 @@ const blogSearchSchema = z.object({
 export type BlogSearchParams = z.infer<typeof blogSearchSchema>;
 
 export const Route = createFileRoute('/blog/')({
-  validateSearch: blogSearchSchema
+  validateSearch: blogSearchSchema,
+  loaderDeps: ({ search: { page, pageSize } }) => ({ page, pageSize }),
+  loader: ({ context: { queryClient }, deps: { page, pageSize } }) =>
+    queryClient.ensureQueryData(blogPostsQueryOptions(page, pageSize)),
+  onError: ({ error }) => {
+    console.error(error);
+  },
+  errorComponent: RouteErrorComponent
 });

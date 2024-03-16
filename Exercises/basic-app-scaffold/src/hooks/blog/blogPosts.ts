@@ -1,5 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { type BlogPost, type BlogPostResponse, BlogPostResponsesSchema, BlogPostsSchema } from '../types/blog.ts';
+import {
+  type BlogPost,
+  type BlogPostResponse,
+  BlogPostResponsesSchema,
+  BlogPostsSchema
+} from '@customTypes/blog/blogPosts';
 
 async function fetchBlogPosts(page: number, pageSize: number): Promise<BlogPost[]> {
   const start = (page - 1) * pageSize;
@@ -17,9 +21,7 @@ async function fetchBlogPosts(page: number, pageSize: number): Promise<BlogPost[
   return BlogPostsSchema.parse(mappedData);
 }
 
-export const useBlogPosts = (page: number, pageSize: number) => {
-  return useQuery<BlogPost[]>({
-    queryKey: ['blogPosts', page, pageSize],
-    queryFn: () => fetchBlogPosts(page, pageSize)
-  });
-};
+export const blogPostsQueryOptions = (page: number, pageSize: number) => ({
+  queryKey: ['blogPosts', page, pageSize],
+  queryFn: () => fetchBlogPosts(page, pageSize)
+});

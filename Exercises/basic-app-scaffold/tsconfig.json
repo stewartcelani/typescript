@@ -2,10 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@types": ["src/types/index.ts"],
+      "@customTypes/*": ["src/types/*"],
       "@routes/*": ["src/routes/*"],
-        "@hooks": ["src/hooks/index.ts"],
+        "@hooks/*": ["src/hooks/*"],
         "@utils/*": ["src/utils/*"],
       "@store": ["src/store/index.ts"]
     },
@@ -29,7 +30,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],

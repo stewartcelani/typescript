@@ -4,26 +4,33 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { routeTree } from './routeTree.gen';
 
+// @tanstack/react-query
+const queryClient = new QueryClient();
+
 // @tanstack/react-router
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient
+  },
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0
+});
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
   }
 }
 
-// @tanstack/react-query
-const queryClient = new QueryClient();
-
 // Render the app
 const rootElement = document.getElementById('app')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <QueryClientProvider client={queryClient}>
-      <StrictMode>
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-      </StrictMode>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </StrictMode>
   );
 }

@@ -1,32 +1,35 @@
-import { useBlogPosts } from '@hooks';
 import { Route as BlogRoute, type BlogSearchParams } from '@routes/blog';
+import { Route as BlogPostRoute } from '@routes/blog/$postId';
 import { Link, useNavigate } from '@tanstack/react-router';
+import { blogPostsQueryOptions } from '@hooks/blog/blogPosts';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export default function Blog() {
+  const { queryClient } = BlogRoute.useRouteContext();
   const navigate = useNavigate({ from: BlogRoute.fullPath });
   const { page, pageSize }: BlogSearchParams = BlogRoute.useSearch();
-  const { data, isLoading, error } = useBlogPosts(page, pageSize);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <span>Error: {error.message}</span>;
-  }
+  const { data } = useSuspenseQuery(blogPostsQueryOptions(page, pageSize));
 
   return (
     <>
       <h1>Blog Page</h1>
-      {data &&
-        data.map((post) => (
-          <div key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-          </div>
-        ))}
-      {data && data.length === 0 && <p>No posts found</p>}
-
+      <button
+        onClick={() => {
+          void queryClient.refetchQueries({ queryKey: blogPostsQueryOptions(page, pageSize).queryKey });
+        }}
+      >
+        Refresh
+      </button>
+      {data.map((post) => (
+        <div key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+          <Link from={BlogRoute.fullPath} to={BlogPostRoute.to} params={{ postId: post.id }}>
+            Read More
+          </Link>
+        </div>
+      ))}
+      {data.length === 0 && <p>No posts found</p>}
       {page > 1 && (
         <>
           <Link
