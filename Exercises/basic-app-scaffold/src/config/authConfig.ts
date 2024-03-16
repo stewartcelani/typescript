@@ -1,14 +1,30 @@
-import { Configuration, LogLevel } from '@azure/msal-browser';
+import { Configuration, LogLevel, PublicClientApplication } from '@azure/msal-browser';
 
-export const msalConfig: Configuration = {
+type AppScopes = string[];
+
+type AppRoles = {
+  blogsView: string;
+  counterView: string;
+  counterClick: string;
+};
+
+export const appScopes: AppScopes = ['api://DOWNSTREAM_API_CLIENT_ID/access_as_user'];
+
+export const appRoles: AppRoles = {
+  blogsView: 'Blogs.View',
+  counterView: 'Counter.View',
+  counterClick: 'Counter.Click'
+};
+
+const msalConfig: Configuration = {
   auth: {
-    clientId: 'CLIENT_ID_HERE',
-    authority: 'https://login.microsoftonline.com/TENANT_ID_HERE',
+    clientId: 'CLIENT_ID',
+    authority: 'https://login.microsoftonline.com/TENANT_ID',
     redirectUri: 'http://localhost:5173'
   },
   cache: {
     cacheLocation: 'localStorage',
-    storeAuthStateInCookie: true
+    storeAuthStateInCookie: false
   },
   system: {
     loggerOptions: {
@@ -36,3 +52,5 @@ export const msalConfig: Configuration = {
     }
   }
 };
+
+export const msalInstance = await PublicClientApplication.createPublicClientApplication(msalConfig);

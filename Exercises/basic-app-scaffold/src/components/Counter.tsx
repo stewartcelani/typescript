@@ -1,13 +1,17 @@
-import { useCounterStore } from '@store';
+import { useCounterStore } from '@stores/counterStore';
 import { useState } from 'react';
+import { useAuth } from '@hooks/useAuth';
+import { appRoles } from '@config/authConfig';
+import AuthorizeView from '@components/auth/AuthorizeView.tsx';
 
 function Counter() {
   const [incrementAmount, setIncrementBy] = useState(1);
   const count = useCounterStore((state) => state.count);
   const incrementBy = useCounterStore((state) => state.incrementBy);
+  const authContext = useAuth();
 
   return (
-    <>
+    <AuthorizeView role={appRoles.counterView}>
       <p>
         This component demonstrates state managment with{' '}
         <a href="https://github.com/pmndrs/zustand" target="_blank" rel="noreferrer">
@@ -22,10 +26,12 @@ function Counter() {
         value={incrementAmount}
         onChange={(e) => setIncrementBy(+e.target.value)}
       />
-      <button onClick={() => incrementBy(incrementAmount)}>Increment</button>
+      <button disabled={!authContext.hasRole(appRoles.counterClick)} onClick={() => incrementBy(incrementAmount)}>
+        Increment
+      </button>
 
       <div>Count from counter store is : {count}</div>
-    </>
+    </AuthorizeView>
   );
 }
 

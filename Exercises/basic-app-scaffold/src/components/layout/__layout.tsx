@@ -1,6 +1,6 @@
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { Outlet } from '@tanstack/react-router';
-import Header from '@components/common/Header';
+import Header from '@/layout/Header.tsx';
 
 export default function Layout() {
   return (

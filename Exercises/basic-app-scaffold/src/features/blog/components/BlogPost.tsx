@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { blogPostQueryOptions } from '@hooks/blog/blogPost';
-import { Route as BlogPostRoute } from '@routes/blog/$postId';
+import { blogPostQueryOptions } from '@features/blog/queries/blogPost.ts';
+import { Route as BlogPostRoute } from '@routes/blog/$postId.tsx';
 
 export default function BlogPost() {
   const { postId } = BlogPostRoute.useParams();

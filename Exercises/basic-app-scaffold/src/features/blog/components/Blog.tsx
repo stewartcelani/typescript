@@ -1,11 +1,12 @@
 import { Route as BlogRoute, type BlogSearchParams } from '@routes/blog';
-import { Route as BlogPostRoute } from '@routes/blog/$postId';
+import { Route as BlogPostRoute } from '@routes/blog/$postId.tsx';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { blogPostsQueryOptions } from '@hooks/blog/blogPosts';
+import { blogPostsQueryOptions } from '@features/blog/queries/blogPosts.ts';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Blog() {
-  const { queryClient } = BlogRoute.useRouteContext();
+  const queryClient = useQueryClient();
   const navigate = useNavigate({ from: BlogRoute.fullPath });
   const { page, pageSize }: BlogSearchParams = BlogRoute.useSearch();
   const { data } = useSuspenseQuery(blogPostsQueryOptions(page, pageSize));

@@ -3,11 +3,12 @@ import {
   type BlogPostResponse,
   BlogPostResponsesSchema,
   BlogPostsSchema
-} from '@customTypes/blog/blogPosts';
+} from '@features/blog/types/blogPosts.ts';
 
 async function fetchBlogPosts(page: number, pageSize: number): Promise<BlogPost[]> {
   const start = (page - 1) * pageSize;
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${start}&_limit=${pageSize}`);
+  if (!response.ok) throw new Error('Failed to fetch blog posts');
   const data = (await response.json()) as BlogPostResponse[];
 
   const validatedData = BlogPostResponsesSchema.parse(data);

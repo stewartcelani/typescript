@@ -4,6 +4,7 @@ export type AuthContext = {
   user: AccountInfo | null;
   isAuthenticated: () => boolean;
   setUser: (user: AccountInfo) => void;
+  hasRole: (role: string) => boolean;
 };
 
 export const authContext: AuthContext = {
@@ -13,5 +14,12 @@ export const authContext: AuthContext = {
   },
   setUser: (user: AccountInfo) => {
     authContext.user = user;
+  },
+  hasRole: (role: string) => {
+    if (!authContext.user || !authContext.user.idTokenClaims || !authContext.user.idTokenClaims.roles) {
+      return false;
+    }
+    const roles = authContext.user.idTokenClaims.roles;
+    return roles.includes(role);
   }
 };
