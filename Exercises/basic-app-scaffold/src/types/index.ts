@@ -1,1 +1,1 @@
-export { BlogPostSchema, BlogPostsSchema, type BlogPost, type BlogPosts } from './blog';
+export { BlogPostResponsesSchema, BlogPostSchema, BlogPostsSchema, type BlogPost } from './blog';

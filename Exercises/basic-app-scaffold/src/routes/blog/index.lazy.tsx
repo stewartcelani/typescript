@@ -1,10 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import Blog from '../../components/blog/Blog.tsx';
+import Blog from '@components/blog/Blog';
 
 export const Route = createLazyFileRoute('/blog/')({
-  component: BlogRoute
+  component: Blog
 });
-
-function BlogRoute() {
-  return <Blog />;
-}
