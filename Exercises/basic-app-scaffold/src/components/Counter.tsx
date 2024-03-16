@@ -8,6 +8,13 @@ function Counter() {
 
   return (
     <>
+      <p>
+        This component demonstrates state managment with{' '}
+        <a href="https://github.com/pmndrs/zustand" target="_blank" rel="noreferrer">
+          Zustand
+        </a>
+        .
+      </p>
       <label htmlFor="incrementAmount">Increment by:</label>
       <input
         id="incrementAmount"
