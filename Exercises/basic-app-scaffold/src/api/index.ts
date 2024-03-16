@@ -1,0 +1,1 @@
+export { fetchBlogPosts } from './blog';

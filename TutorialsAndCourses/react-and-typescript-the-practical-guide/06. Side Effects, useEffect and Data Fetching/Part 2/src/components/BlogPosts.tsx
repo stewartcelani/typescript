@@ -6,12 +6,6 @@ export type BlogPost = {
   text: string;
 };
 
-/*export type BlogPostResponse = {
-  id: number;
-  userId: number;
-  title: string;
-  body: string;
-};*/
 const BlogPostSchema = z.object({
   id: z.number(),
   userId: z.number(),
@@ -19,9 +13,9 @@ const BlogPostSchema = z.object({
   body: z.string(),
 });
 
-export const BlogPostResponseSchema = z.array(BlogPostSchema);
+export const BlogPostsSchema = z.array(BlogPostSchema);
 
-export type BlogPostResponse = z.infer<typeof BlogPostResponseSchema>;
+export type BlogPosts = z.infer<typeof BlogPostsSchema>;
 
 type BlogPostsProps = {
   posts: BlogPost[];

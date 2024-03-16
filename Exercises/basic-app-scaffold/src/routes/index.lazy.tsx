@@ -1,15 +1,10 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import Counter from '../components/Counter.tsx';
+import Index from '@components/Index.tsx';
 
 export const Route = createLazyFileRoute('/')({
-  component: Index,
+  component: IndexRoute
 });
 
-function Index() {
-  return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
-      <Counter />
-    </div>
-  );
+function IndexRoute() {
+  return <Index />;
 }

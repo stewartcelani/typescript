@@ -1,4 +1,4 @@
-import { useCounterStore } from '../store';
+import { useCounterStore } from '@store';
 import { useState } from 'react';
 
 function Counter() {
