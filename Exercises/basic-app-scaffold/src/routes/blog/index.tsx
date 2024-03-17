@@ -4,6 +4,7 @@ import { blogPostsQueryOptions } from '@features/blog/queries/blogPosts.ts';
 import RouteErrorComponent from '@components/errors/RouteErrorComponent.tsx';
 import { appRoles } from '@config/authConfig.ts';
 import { AuthenticationError } from '@/errors/authenticationError.ts';
+import TopLoadingBarComponent from '@components/loading/TopLoadingBarComponent.tsx';
 
 const blogSearchSchema = z.object({
   page: z.number().catch(1),
@@ -25,5 +26,6 @@ export const Route = createFileRoute('/blog/')({
   onError: ({ error }) => {
     console.error(error);
   },
-  errorComponent: RouteErrorComponent
+  errorComponent: RouteErrorComponent,
+  pendingComponent: TopLoadingBarComponent
 });

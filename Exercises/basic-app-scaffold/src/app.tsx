@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { MsalProvider } from '@azure/msal-react';

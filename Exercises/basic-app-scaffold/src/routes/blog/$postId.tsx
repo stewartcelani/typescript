@@ -4,6 +4,7 @@ import { blogPostQueryOptions } from '@features/blog/queries/blogPost.ts';
 import { z } from 'zod';
 import { appRoles } from '@config/authConfig.ts';
 import { AuthenticationError } from '@errors/authenticationError.ts';
+import TopLoadingBarComponent from '@components/loading/TopLoadingBarComponent.tsx';
 
 export const Route = createFileRoute('/blog/$postId')({
   beforeLoad: ({ context: { authContext } }) => {
@@ -16,5 +17,6 @@ export const Route = createFileRoute('/blog/$postId')({
   }),
   loader: ({ context: { queryClient }, params: { postId } }) =>
     queryClient.ensureQueryData(blogPostQueryOptions(Number(postId))),
-  errorComponent: RouteErrorComponent
+  errorComponent: RouteErrorComponent,
+  pendingComponent: TopLoadingBarComponent
 });

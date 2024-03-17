@@ -4,8 +4,12 @@ import {
   BlogPostResponsesSchema,
   BlogPostsSchema
 } from '@features/blog/types/blogPosts.ts';
+import { randomInt } from '@utils/numberUtils.ts';
+import { delay } from '@/utils';
 
 async function fetchBlogPosts(page: number, pageSize: number): Promise<BlogPost[]> {
+  await delay(randomInt(0, 2500)); // TODO: Remove this line when not development
+
   const start = (page - 1) * pageSize;
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${start}&_limit=${pageSize}`);
   if (!response.ok) throw new Error('Failed to fetch blog posts');
